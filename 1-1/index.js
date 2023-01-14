@@ -145,7 +145,6 @@ function Product(id, name, description, price, brand,
         }
         return averageRating / (ratings.length - 1);
     }
-
 }
 
 /**
@@ -165,37 +164,20 @@ function Review(id, author, date, comment, rating) {
     this.comment = comment;
     this.rating = {'service': rating[0], 'price': rating[1], 'value': rating[2], 'quality': rating[3]};
 
-    this.getID = function () {
-        return this.id;
-    }
-    this.setID = function (id) {
-        this.id = id;
-    }
+    this.getID = () => this.id;
+    this.setID = (id) => this.id = id;
 
-    this.getAuthor = function () {
-        return this.author;
-    }
-    this.setAuthor = function (author) {
-        this.author = author;
-    }
+    this.getAuthor = () => this.author;
+    this.setAuthor = (author) => this.author = author;
 
-    this.getDate = function () {
-        return this.date;
-    }
-    this.setDate = function (date) {
-        this.date = date;
-    }
+    this.getDate = () => this.date;
+    this.setDate = (date) => this.date = date;
 
-    this.getComment = function () {
-        return this.comment;
-    }
-    this.setComment = function (comment) {
-        this.comment = comment;
-    }
+    this.getComment = () => this.comment;
+    this.setComment = (comment) => this.comment = comment;
 
     this.getRating = () => this.rating;
     this.setRating = (rating) => this.rating = rating;
-
 }
 
 /**
@@ -233,5 +215,3 @@ function sortProducts(products, sortRule) {
         return products;
     }
 }
-
-

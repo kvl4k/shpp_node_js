@@ -2,16 +2,16 @@
  * Function to create objects with the following properties and methods.
  *
  * @param id{string} Product key
- * @param name{string}
- * @param description{string}
- * @param price{number}
- * @param brand{string}
+ * @param name{string} Product name
+ * @param description{string} Description of this product
+ * @param price{number} Price value for one unit
+ * @param brand{string} Brand of product
  * @param sizes{string[]} Array sizes
- * @param activeSize{string}
+ * @param activeSize{string} Selected size
  * @param quantity{number} Number of products available
- * @param date{date}
- * @param reviews{reviews[]}
- * @param images{string[]}
+ * @param date{Date} Current date
+ * @param reviews{Review} Array of objects "Review"
+ * @param images{string[]} Array of images of this product
  * @constructor
  */
 function Product(id, name, description, price, brand,
@@ -25,123 +25,82 @@ function Product(id, name, description, price, brand,
     this.activeSize = activeSize;
     this.quantity = quantity;
     this.date = date;
-    this.reviews = reviews;
+    this.reviews = new Array({reviews});
     this.images = images;
 
-    this.getID = function () {
-        return this.id;
-    }
-    this.setID = function (id) {
-        this.id = id;
-    }
+    this.getID = () => this.id;
+    this.setID = (id) => this.id = id;
 
-    this.getName = function () {
-        return this.name;
-    }
-    this.setName = function (name) {
-        this.name = name;
-    }
+    this.getName = () => this.name;
+    this.setName = (name) => this.name = name;
 
-    this.getDescription = function () {
-        return this.description;
-    }
-    this.setDescription = function (description) {
-        this.description = description;
-    }
+    this.getDescription = () => this.description;
+    this.setDescription = (description) => this.description = description;
 
-    this.getPrice = function () {
-        return this.price;
-    }
-    this.setPrice = function (price) {
-        this.price = price;
-    }
+    this.getPrice = () => this.price;
+    this.setPrice = (price) => this.price = price;
 
-    this.getBrand = function () {
-        return this.brand;
-    }
-    this.setBrand = function (brand) {
-        this.brand = brand;
-    }
+    this.getBrand = () => this.brand;
+    this.setBrand = (brand) => this.brand = brand;
 
-    this.getSizes = function () {
-        return this.sizes;
-    }
-    this.setSizes = function (sizes) {
-        this.sizes = sizes;
-    }
+    this.getSizes = () => this.sizes;
+    this.setSizes = (sizes) => this.sizes = sizes;
 
-    this.getActiveSize = function () {
-        return this.activeSize;
-    }
-    this.setActiveSize = function (activeSize) {
-        this.activeSize = activeSize;
-    }
+    this.getActiveSize = () => this.activeSize;
+    this.setActiveSize = (activeSize) => this.activeSize = activeSize;
 
-    this.getQuantity = function () {
-        return this.quantity;
-    }
-    this.setQuantity = function (quantity) {
-        this.quantity = quantity;
-    }
+    this.getQuantity = () => this.quantity;
+    this.setQuantity = (quantity) => this.quantity = quantity;
 
-    this.getDate = function () {
-        return this.date;
-    }
-    this.setDate = function (date) {
-        this.date = date;
-    }
+    this.getDate = () => this.date;
+    this.setDate = (date) => this.date = date;
 
-    this.getReviews = function () {
-        return this.reviews;
-    }
-    this.setReviews = function (reviews) {
-        this.reviews = reviews;
-    }
+    this.getReviews = () => this.reviews;
+    this.setReviews = (reviews) => this.reviews = reviews;
 
-    this.getImages = function () {
-        return this.images;
-    }
-    this.setImages = function (images) {
-        this.images = images;
-    }
+    this.getImages = () => this.images;
+    this.setImages = (images) => this.images = images;
 
     /**
+     * Search for reviews in the array by the received id and returned the found review.
      *
-     * @param id
-     * @returns {string}
+     * @param id of review
+     * @returns {Review} found review
      */
-    this.getReviewByID = function (id) {
-        const reviews = this.getReviews();
+    this.getReviewByID = (id) => {
+        const reviews = this.getReviews;
         for (let i = 0; i < reviews.length; i++) {
-            if (reviews[i].getID() === id) {
+            if (reviews[i].getID === id) {
                 return reviews[i];
             }
         }
     }
 
     /**
+     * Returns the picture by the passed parameter, if the parameter
+     * was not passed the first picture from the array.
      *
      * @param parameter
      * @returns {string}
      */
-    this.getImage = function (parameter) {
+    this.getImage = (parameter) => {
         const image = this.getImages();
         return parameter === undefined ? image[0] : image[parameter];
     }
 
     /**
+     * Adds a new value to the "sizes" array.
      *
-     * @param size
+     * @param size new size.
      */
-    this.addSize = function (size) {
-        this.getSizes().push(size);
-    }
+    this.addSize = (size) => this.getSizes().push(size);
 
     /**
+     * Deletes a value from the "sizes" array by the specified key.
      *
-     * @param size
+     * @param size value for delete.
      */
-    this.deleteSize = function (size) {
+    this.deleteSize = (size) => {
         const index = this.getSizes().indexOf(size);
         if (index !== -1) {
             this.getSizes().splice(index, 1);
@@ -149,37 +108,37 @@ function Product(id, name, description, price, brand,
     }
 
     /**
+     * Adds the "reviews" object to the "reviews" array.
      *
-     * @param review
+     * @param review new review for product.
      */
-    this.addReview = function (review) {
-        this.getReviews().push(review)
-    }
+    this.addReview = (review) => this.getReviews().push(review);
 
     /**
+     * Deletes the "review" object from the "reviews" array by the specified key.
      *
-     * @param id
+     * @param id key of review
      */
-    this.deleteReview = function (id) {
-        const index = this.getReviews().indexOf(this.getReviewByID(id));
+    this.deleteReview = (id) => {
+        const index = this.getReviews.indexOf(this.getReviewByID(id));
         if (index !== -1) {
-            this.getReviews().splice(index, 1);
+            return this.getReviews().splice(index, 1);
         }
     }
 
     /**
-     * TODO перевірити метод!!!
-     * @returns {number}
+     * Returns the average rating of the product.
+     *
+     * @returns {number} Average rating.
      */
-    this.getAverageRating = function () {
+    this.getAverageRating = () => {
         let ratings = [];
-        const reviews = this.getReviews();
+        let reviews = this.getReviews();
         for (let i = 0; i < reviews.length; i++) {
             let rating = reviews[i].getRating();
-            for (let r of rating.values) {
-                ratings.push(r);
-            }
+            ratings = ratings.concat(rating);
         }
+
         let averageRating = 0;
         for (let i = 0; i < ratings.length; i++) {
             averageRating += ratings[i];
@@ -190,12 +149,13 @@ function Product(id, name, description, price, brand,
 }
 
 /**
+ * Constructor of the review object and property types.
  *
- * @param {string}id
- * @param {string}author
- * @param {date}date
- * @param {string}comment
- * @param {$ObjMap}rating
+ * @param {string}id - id of review
+ * @param {string}author - review author
+ * @param {Date}date - date of creating review
+ * @param {string}comment - product review
+ * @param {$ObjMap}rating - ranking
  * @constructor
  */
 function Review(id, author, date, comment, rating) {
@@ -203,7 +163,7 @@ function Review(id, author, date, comment, rating) {
     this.author = author;
     this.date = date;
     this.comment = comment;
-    this.rating = rating;
+    this.rating = {'service': rating[0], 'price': rating[1], 'value': rating[2], 'quality': rating[3]};
 
     this.getID = function () {
         return this.id;
@@ -233,18 +193,18 @@ function Review(id, author, date, comment, rating) {
         this.comment = comment;
     }
 
-    this.getRating = function () {
-        return this.rating;
-    }
-    this.setRating = function (rating) {
-        this.rating = rating;
-    }
+    this.getRating = () => this.rating;
+    this.setRating = (rating) => this.rating = rating;
+
 }
 
 /**
+ * takes two parameters: an array of "Product" objects and the text search.
+ * The result of the function is an array of objects that contain
+ * the text search in their name or description.
  *
- * @param products
- * @param search
+ * @param products -  array of "Product"
+ * @param search - key word for search
  */
 function searchProducts(products, search) {
     let searchResult = [];
@@ -258,67 +218,20 @@ function searchProducts(products, search) {
     return searchResult;
 }
 
+/**
+ * Takes two parameters: an array of "Product" objects and an attribute to sort by.
+ * Returns an array of objects sorted by the field.
+ *
+ * @param products - the products array
+ * @param sortRule - the field name to sort.
+ * @returns {*}
+ */
 function sortProducts(products, sortRule) {
-    products.sort((a, b) => a[sortRule] - b[sortRule])
+    if (sortRule.toLowerCase() === ("id") || sortRule.toLowerCase() === ("price") || sortRule.toLowerCase() === ("name")) {
+        return products.sort((a, b) => a[sortRule] > b[sortRule] ? 1 : -1)
+    } else {
+        return products;
+    }
 }
-
-
-
-// TODO Ця частина для тесту
-let one = new Product(
-    "4",
-    "bake",
-    "hot and fresh",
-    10,
-    "Halya",
-    ["M", "L", "S", "XS"],
-    "L",
-    11,
-    2022,
-    "revievs",
-    ["image", "image1"]
-);
-
-let two = new Product(
-    "2",
-    "apple",
-    "fresh",
-    1,
-    "apl",
-    ["M", "L", "S", "XS"],
-    "L",
-    11111,
-    2022,
-    "revievs",
-    ["image", "image1"]
-);
-
-let third = new Product(
-    "3",
-    "ananas",
-    "fruckt",
-    11,
-    "africa",
-    ["M", "L", "S", "XS"],
-    "L",
-    40,
-    2022,
-    "revievs",
-    ["image", "image1"]
-);
-
-let products = [];
-products.push(one);
-products.push(two);
-products.push(third);
-
-sortProducts(products, "id");
-products.forEach(product => console.log(product.id));
-
-
-
-
-
-
 
 

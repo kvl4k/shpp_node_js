@@ -117,15 +117,16 @@ class AbstractProduct {
         let ratings = [];
         reviews = this.reviews;
         for (let i = 0; i < reviews.length; i++) {
-          //TODO дописати
+            let r = reviews[i].rating;
+            for (const key in r) {
+                ratings.push(r[key]);
+            }
         }
         let average = 0;
         ratings.forEach(element => {
             average += element;
         });
-
         return average/ratings.length;
-
     }
 
 

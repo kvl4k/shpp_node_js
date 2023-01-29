@@ -33,21 +33,21 @@ function processHttpRequest($method, $uri, $headers, $body) {
     let correctUri = /[\w\/]*/.test($uri);
     let statusCode = (correctMethod && correctUri) ? 200 : 400;
     let statusMessage = statusCode === 200 ? "OK" : "Bad Request";
-    if ($uri.indexOf('/hey') !== 0) {
+    let body;
+
+    let host = $headers['Host'].substring(0,$headers['Host'].indexOf("."));
+    let correctHost = (host === 'student' || host === 'another');
+    if ($uri.indexOf('/hey') !== 0 || !correctUri) {
         statusCode = 404;
         statusMessage = "Not Found";
     }
 
-
-    let logPass;
-
     try {
-        logPass = require("fs").readFileSync("passwords.txt", 'utf-8');
-        body = logPass.indexOf(body) !== -1 ? "<h1 style=\"color:green\">FOUND</h1>" : "<h1 style=\"color:darkred\">Invalid login or password</h1>";
+        body = require("fs").readFileSync(`${host}${$uri}`, 'utf-8');
+
     } catch {
-        statusCode = 500;
-        statusMessage = "Internal Server Error";
-        body = "internal server error"
+        statusCode = 404;
+        statusMessage = "Not Found";
     }
 
     if (statusMessage === "Bad Request") {

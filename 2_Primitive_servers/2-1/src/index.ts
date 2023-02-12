@@ -27,12 +27,8 @@ hey({ name: () => "vasya", coolness: 100 })
 // 4.2
 abstract class Pet {
     petName : string;
-    type: "cat" | "dog";
-    cuteness?: number;
-    coolness?: number;
-    constructor(name: string, type: "cat" | "dog") {
+    constructor(name: string) {
         this.petName = name;
-        this.type = type;
     }
 
     name(): string {
@@ -65,23 +61,26 @@ heyPet(a)
 heyPet(b)
 
 // 4.3
-function hey(a) {
+interface HomePet {
+    name: () => string;
+    type: "cat" | "dog";
+    cuteness?: number;
+    coolness?: number;
+}
+function heyHomePet(a: HomePet) {
     return "hey! i'm " + a.name()
         + (a.type === "cat" ? ("cuteness: " + a.cuteness) : ("coolness: " + a.coolness))
 }
-hey({ name: () => "roma", type: "cat", cuteness: 100 })
-hey({ name: () => "vasya", type: "dog", coolness: 100 })
+heyHomePet({ name: () => "roma", type: "cat", cuteness: 100 })
+heyHomePet({ name: () => "vasya", type: "dog", coolness: 100 })
 
 // 5.
-// google for Record type
 function stringEntries(a: {[key: string]: string[]}) {
     return Array.isArray(a) ? a : Object.keys(a)
 }
 
 // 6.
-// you don't know Promises and async/await yet. Or do you? 
-// ....can be hard, don't worry and SKIP if you do not know how to do it
-async function world(a) {
+async function world(a: number): Promise<string> {
     return "*".repeat(a)
 }
 const hello = async () => {

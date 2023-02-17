@@ -64,7 +64,36 @@ const getNames2 = new Promise((resolve) => {
 
 getNames2.then((names) => console.log("Random names without async/await + Promise.all: " + names + "\n"));
 
-//4.
+//4 part
+//4.1
+function getFemaleUser(address: string) {
+        let counter: number = 0;
+        while (true) {
+                counter++;
+                const female: Promise<boolean> = fetch(address).then((res) => res.json())
+                
+
+        }
+        console.log("Made " + counter + " requests for get female user without async/await.\n");
+}
+
+getFemaleUser(RANDOM_USER_URL);
+
+//4.2
+async function getFemaleUser1(address: string): Promise<string> {
+        let counter: number = 0;
+        let currGender: string = "";
+        do {
+                const response: Response = await fetch(address);
+                const { gender } = await response.json();
+                currGender = gender;
+                counter++;
+        } while (currGender !== "Female")
+        console.log("Made " + counter + " requests for get female user with async/await.\n");
+        return currGender;
+}
+
+getFemaleUser1(RANDOM_USER_URL);
 
 
 

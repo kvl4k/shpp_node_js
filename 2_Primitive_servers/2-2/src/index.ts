@@ -66,34 +66,48 @@ getNames2.then((names) => console.log("Random names without async/await + Promis
 
 //4 part
 //4.1
-function getFemaleUser(address: string) {
-        let counter: number = 0;
-        while (true) {
-                counter++;
-                const female: Promise<boolean> = fetch(address).then((res) => res.json())
-                
-
-        }
-        console.log("Made " + counter + " requests for get female user without async/await.\n");
+function getFemaleUser(address: string): Promise<string> {
+        return fetch(address)
+                .then((res) => res.json())
+                .then((user) => user.gender === "Female" ? user : getFemaleUser(address))
 }
-
 getFemaleUser(RANDOM_USER_URL);
 
 //4.2
 async function getFemaleUser1(address: string): Promise<string> {
-        let counter: number = 0;
         let currGender: string = "";
+        let currUser: Promise<any>;
         do {
                 const response: Response = await fetch(address);
-                const { gender } = await response.json();
-                currGender = gender;
-                counter++;
+                const user = await response.json();
+                currGender = user.gender;
+                currUser = user;
         } while (currGender !== "Female")
-        console.log("Made " + counter + " requests for get female user with async/await.\n");
-        return currGender;
+        return currUser;
 }
-
 getFemaleUser1(RANDOM_USER_URL);
 
+// 5part
+function firstFunc(callback: (ip: string) => void): void {
+        fetch(IPIFY_URL)
+                .then((res) => res.json())
+                .then((res) => callback(res.ip))
+}
+async function secondFunc() {
+        firstFunc((ip) => console.log(ip));
+}
+secondFunc();
 
+// 6 part
+async function firstPart(): Promise<string> {
+        const response: Response = await fetch(IPIFY_URL);
+        const { ip } = await response.json();
+        return ip;
+}
 
+async function secondPart(callback: (ip: string) => void) {
+        await firstPart()
+                .then((ip) => callback(ip));
+}
+
+secondPart((func) => console.log(func));
